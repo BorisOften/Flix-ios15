@@ -44,7 +44,7 @@ class MovieViewController: UIViewController , UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        movies.count
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,6 +64,15 @@ class MovieViewController: UIViewController , UITableViewDataSource, UITableView
         cell.posterImage.af.setImage(withURL: posterUrl!)
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let cell = sender as! UITableViewCell
+        let index = tableViewTable.indexPath(for: cell)!
+        let movie = movies[index.row]
+        let movieDetailVC = segue.destination as! MovieDetailsViewController
+        movieDetailVC.movie = movie
     }
     
 
